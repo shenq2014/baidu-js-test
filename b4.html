@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .lis ul li{
+            width: 20px;
+            height: 20px;
+            background: #ff0000;
+            color: #fff;
+            float: left;
+            list-style: none;
+            text-align: center;
+            line-height: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" style="outline: none" id="num" />
+    <input type="button" value="左侧入" id="leftEnter"/>
+    <input type="button" value="右侧入" id="rightEnter"/>
+    <input type="button" value="左侧出" id="leftC"/>
+    <input type="button" value="右侧出" id="rightC"/>
+    <div class="lis">
+        <ul id="lis">
+        </ul>
+    </div>
+<script>
+    window.onload = function() {
+        var leftEnter = document.getElementById('leftEnter');
+        var rightEnter = document.getElementById('rightEnter');
+        var leftC = document.getElementById('leftC');
+        var rightC = document.getElementById('rightC');
+        var lis = document.getElementById('lis');
+        var num = document.getElementById('num');
+
+        //左边添加点击事件
+        leftEnter.onclick = function() {
+            var li = document.createElement('li');
+            //输入的值判断是否符合条件
+            var check = /^[0-9]$/;
+            if (!check.test(num.value)) {
+                alert("请输入数字");
+                return false;
+            }else{
+                //符合条件的如果li的个数大于0说明有存在li,那么把li插入到lis的第一个子元素前面
+                if(lis.getElementsByTagName('li').length > 0) {
+                    //获取lis的第一个li
+                    var newLi = lis.getElementsByTagName('li')[0];
+                    console.log(newLi);
+                    lis.appendChild(li);
+                    li.innerHTML = num.value;
+                    lis.insertBefore(li, newLi);
+                    console.log(lis.childNodes);
+                }else{
+                    //否则没有li的个数的时候给li赋值
+                    lis.appendChild(li);
+                    li.innerHTML = num.value;
+                }
+                return true;
+            }
+        };
+        rightEnter.onclick = function() {
+            var li = document.createElement('li');
+            //输入的值判断是否符合条件
+            var check = /^[0-9]$/;
+            if (!check.test(num.value)) {
+                alert("请输入数字");
+                return false;
+            }else{
+                //符合条件的如果li的个数大于0说明有存在li,那么把li插入到lis的第一个子元素前面
+                if(lis.getElementsByTagName('li').length > 0) {
+                    //获取lis的li
+                    var newLi = lis.getElementsByTagName('li');
+                    console.log(newLi);
+                    lis.appendChild(li);
+                    li.innerHTML = num.value;
+                    //插入到li的最后一项的后面
+                    lis.insertBefore(li, newLi.lastChild.nextSibling);
+                    console.log(lis.childNodes);
+                }else{
+                    //否则没有li的个数的时候给li赋值
+                    lis.appendChild(li);
+                    li.innerHTML = num.value;
+                }
+                return true;
+            }
+        };
+        leftC.onclick = function() {
+            var li = document.createElement('li');
+                //符合条件的如果li的个数大于0说明有存在li,那么把li移除
+                if(lis.getElementsByTagName('li').length > 0) {
+                    //获取lis的第一个li
+                    var newLi = lis.getElementsByTagName('li')[0];
+                    lis.removeChild(newLi);
+                }else{
+                   alert('没有要移除的项');
+                }
+
+        };
+        rightC.onclick = function() {
+            var li = document.createElement('li');
+            //符合条件的如果li的个数大于0说明有存在li,那么把li移除
+            if(lis.getElementsByTagName('li').length > 0) {
+                //获取lis的最后一个li
+                var newLi = lis.lastChild;
+                lis.removeChild(newLi);
+            }else{
+                alert('没有要移除的项');
+            }
+        }
+    }
+</script>
+</body>
+</html>
